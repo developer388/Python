@@ -58,6 +58,9 @@ Internal Functions
 type(variable_name) : Returns data type of a variable
 len(variable_name)  : Returns len of str, list
 
+Internal Modules
+https://docs.python.org/3/py-modindex.html
+
 """
 
 
@@ -168,6 +171,9 @@ print(numbers)
 numbers [0:4] = []
 print(numbers)
 
+# slice
+print(numbers[1:3])
+
 # delete by index
 del numbers[0]
 print(numbers)
@@ -176,6 +182,10 @@ print(numbers)
 del numbers[0:2]
 print(numbers)
 
+
+# insert(index, value) insert a new value at sepecified index
+numbers.insert(0, -1)
+print(numbers)
 
 # append()  add an item to the end of the list
 numbers = [1,2,3]
@@ -187,14 +197,9 @@ numbers.extend([5,6,7])
 print(numbers)
 
 
-# insert(index, value) insert a new value at sepecified index
-numbers.insert(0, -1)
-print(numbers)
-
-
 # remove() find and removes an item from the lis
 #          if item is not present, exception is raised
-numbers.remove(-1)
+#numbers.remove(-1)
 print(numbers)
 
 # pop(index=) remove an item from the specified index
@@ -303,7 +308,11 @@ print(employee.values())
 # pop(key, default) Removes a key from a dictionary, if it is present, and returns its value.
 #                   default value is returned if key doesn't exists
 
-print(employee.pop('name'))
+# delete a key using del operator
+del employee['name']
+
+# delete a key using pop function
+#print(employee.pop('name'))
 print(employee)
 
 employee['age'] = 19
@@ -761,7 +770,27 @@ finally:
   Instance Method
      Instance methods are functions that are defined inside a class and can only be called from an instance of that class.
      First paramenter is always self
-     
+
+  
+  Access specifiers for instance variables
+  Public: By default all variables and methods are public
+  Protected: A single underscore can be used in beginning of a variable name or method name to make it protected.
+             Protected members are not available publicly they are accesible in child classes
+  Private:   Double underscores can be used in beginning of a variable name or method name to make it private.
+             Private members are accesible only within the class wherein they are defined
+    
+    
+  Defining static function in a class:
+  In python, static function can be defined in two ways:
+  
+  @staticmethod: decorator can be used on a function to make it static. 
+                 static function can be used using ClassName.static_function_name()
+  
+  staticmethod(): internal function can be used to make a method static
+                  Class.Function = staticmethod(Class.Function)
+    
+
+         
   Inheritance
   class child_class_name (parent_class_name):
   
@@ -772,6 +801,22 @@ finally:
   You can access the parent class from inside a method of a child class by using super()
   
   isinstance(reference_variable_name, class_name) function can be used to check if a reference belongs to a class
+  
+  Abstract Class
+  We cannot create an abstract class in Python directly. However, Python does provide a module that allows us to define abstract classes. 
+  The module we can use to create an abstract class in Python is abc(abstract base class) module.
+  
+  Abstract methods force the child classes to give the implementation of these methods in them and thus help us achieve abstraction as each subclass can give its own implementation.
+  A class containing one or more than one abstract method is called an abstract class.
+  
+  
+  from abc import ABC, abstractmethod
+  
+  class <Abstract_Class_Name>(ABC):
+    @abstractmethod
+    def <abstract_method_name>(self,other_parameters):
+        pass
+  
   
 """
 
@@ -802,3 +847,184 @@ d = Monkey("Monkey", "Mamal")
 print(d, d.info(), d.planet, isinstance(d, Animal), d.old_info())
 
 
+"""
+Logging Module
+
+The Logging module is an inbuilt module in Python which is powerful and ready to use. This module allows writing logs either to a file or console or to any other output stream.
+
+
+Logging Levels (increasing severity downwards)
+
+DEBUG   This level is mainly used to provide detailed information, typically of interest only when debugging problems.
+INFO    This level is used to confirm that things are working as expected. Just the usual information.
+WARNING This level tells that something unexpected happened but not too severe that it may affect the normal functioning of the program/software.
+ERROR   This should be used to log more serious problems like errors or exceptions leading to functionality getting broken.
+CRITICAL    This level indicates a super serious error like the application not getting started or the database being unavailable to setup connection, etc.
+
+Default level is WARNING, which means that only events of this level and above this level will be tracked, which are, WARNING, ERROR and CRITICAL
+
+Configuring Logging Module
+To configure the python logging module, to set the log level, log format, etc., we can use the basicConfig(**kwargs) method where **kwargs in the function definition means this function takes variable length arguments, which should be passed in the key-value form.
+Some commonly used parameters in the basicConfig() function is given below:
+
+level: With the help of this parameter the root logger will be set to the specified severity level, like DEBUG, INFO, ERROR, etc.
+
+filename: This parameter is mainly used to specify the file name if we want to store the logs in a file.
+
+filemode: If the filename is given, the file is opened in this mode. The default mode is a, which means append.
+
+format: This is used to specify the format of the log message. For example, if you want to add timestamp with the logs, or the name of the python script or maybe the function or class name in the logs, then we can specify the appropriate format for that.
+
+In the basicConfig() function we can either provide the level parameter with an appropriate value, filename and filecode for printing logs in file, and the format parameter to specify the logs, or you can specify all the parameters together, that is the beauty of **kwargs, which means the number of arguments that can be supplied to a function is not fixed.
+
+    
+
+"""
+
+import logging
+
+
+import logging
+
+logging.debug('It is a debug message')  # it will not be printed
+logging.info('It is an info message')   # not printed
+logging.warning('OOPs!!! It is a warning')  # it will be print because it is default level
+logging.error('Oops !! an error message')   # will be printed 
+logging.critical('Oh!!!! it is a critical message') # will be printed
+
+
+logging.basicConfig(level=logging.INFO)
+logging.info('This is an info message.This will get logged.')
+
+
+
+"""
+Multithreading 
+Due to global interpreter lock python doesn't support actual multi threading.
+Python interpreter switches between different tasks when a task is idle waiting for input or other thing
+
+import threading 
+
+is an internal module, which can be used to do multithreading in python
+
+a thread can be started using
+
+threading.Thread() function
+
+threading.Thread(target=function_name, ...function_args).start()
+
+
+daemon=True
+
+If daemon=True is used, thread will terminate when main thread is terminated
+
+threading.Thread(target=function_name,daemon=True ...function_args).start()
+
+https://www.youtube.com/watch?v=2Koubj0fF9U
+
+
+ThreadPool
+
+from concurrent.futures import ThreadPoolExecutor
+
+pool = ThreadPoolExecutor(2)
+result = pool.submit(worker, arg)
+
+pool.shutdown()
+
+
+
+
+Lock
+
+import threading
+
+lock = threading.lock()
+lock.accquire()
+  ...
+  ...
+  ...
+lock.release()    
+
+https://www.youtube.com/watch?v=MbFSuk8yyjY
+"""
+
+import threading
+import time
+
+
+def worker():
+    counter = 0
+    while counter<3:
+        print('counter = ', counter)
+        #time.sleep(1)
+        counter+=1
+    
+worker()
+    
+# threading.Thread(target=worker).start()
+print('on main thread')
+
+
+
+"""
+asyncio
+
+is used to perform asynchronous programming in python
+
+
+"""
+
+import asyncio
+
+async def async_task():
+    print('in async task')
+    await asyncio.sleep(1)
+    print('async task completed')
+    
+    
+# asyncio.run(async_task())    
+    
+    
+async def task_one():
+    task = asyncio.create_task(task_two())
+    print('task_one : A')
+    await asyncio.sleep(1)
+    print('task_two : B')
+    result = await task
+    print('result of task_two : ', result)
+    
+    return 1
+
+async def task_two():
+    print('task_one : 1')
+    await asyncio.sleep(1)
+    print('task_two : 2')
+    return 2
+
+
+    
+# asyncio.run(task_one())    
+
+
+"""
+Decorator
+"""
+
+def decorator(f):
+    def innerFunction(*args, **kwargs):
+        print('Before calling actual function')
+        return 2 * f(*args, **kwargs)
+        
+    return innerFunction
+    
+    
+# @decorator
+def doSomething(a,b,c):
+    print("hello world",a, b, c)
+    return a+b+c
+
+print(doSomething(1,1,1))
+    
+    
+  
