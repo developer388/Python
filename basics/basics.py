@@ -160,6 +160,10 @@ print(numbers)
 numbers = numbers * 2
 print(numbers)
 
+# use of * operator
+# initialize array with 4 elements with None value
+arr = [None] * 4    
+
 # use of in operator
 print(8 in numbers)
 
@@ -184,6 +188,7 @@ print(numbers)
 
 
 # insert(index, value) insert a new value at sepecified index
+# insertion shifts other elements, at ith index new value is added, old value is shifted
 numbers.insert(0, -1)
 print(numbers)
 
@@ -214,8 +219,13 @@ print(numbers.pop())
   
   Tuples are defined by enclosing the elements in parentheses (()) instead of square brackets ([]).
   
-  Tuples are immutable, assigning a value results in exception
+  Elements are indexable just like list using [index]
+
+  Tuples are immutable, assigning a value results in exception 
+  t[0]=41 is not allowed
   
+  Values cannot be added or removed from a tuple
+
   Program execution is faster when manipulating a tuple than it is for the equivalent list. (This is probably not going to be noticeable when the list or tuple is small.
 
   Sometimes you don’t want data to be modified. If the values in the collection are meant to remain constant for the life of the program, using a tuple instead of a list guards against accidental modification
@@ -501,6 +511,27 @@ for i in range(5):
 
 for i in range(0,20,2):
     print(i)
+
+
+# initializing a list with inline for loop
+arr = [0 for i in range(5)]
+
+# initializing a 2d array with inline for loop, 5 row, 5 col all initialized to 0
+2d_arr = [[0 for i in range(5)] for j in range(5)]
+
+
+
+# iterable object can be passed to iter(variable) function which return an iterator
+# reference to iter(variable) can be passed to built in next(iter_var) to iterate over the next item
+
+li = [9,8,7,5,6,4]
+iterable = iter(li)
+
+print(next(iterable))
+print(next(iterable))
+print(next(iterable))
+print(next(iterable))
+
 
 
 """
