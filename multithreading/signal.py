@@ -126,4 +126,63 @@ thread7.start()
 
 
 
+"""
+Inter-thread communication in python
 
+  Thread communicates with each other using signals
+
+  There are three ways to do this
+    1. create event object
+            event object is based on a boolean flag
+            using event object we can perform communication between two theads only
+            event class has these methods:
+                1. set() it sets flag value to True
+                2. wait() thread two call wait method to wait for the signal
+                3. clear() reset the internal flag to False
+                           second thread with wait again
+                4. is_set()  returns true if internal flag is true
+                5. wait(timeout) keeps second thread in waiting state for signal for specified time
+        
+        event = threading.Event()
+        
+        Thread 1
+        event.set()     set the flag to true
+         ...
+        event.clear()   set the flat to false
+
+        Thread 2
+        event.wait()
+
+        if event.is_set()
+           ... do something when flag is true
+        else
+           ... do something when flag is false
+
+    2. condition object
+
+        condition object can be used when we want to unblock other multiple threads
+
+        condition object uses concecpt of lock acquire and release
+
+        condition = threading.Condition()
+
+        Thread 1
+        condition.acquire()
+        condition.notify() other threads when a condition is met.
+        condition.release()
+        
+        Thread 2
+        condition.acquire()
+        condition.wait() other threads when a condition is met.
+        condition.release()
+
+    3. use queue module
+        queue provided atomic operations using inbuilt thread synchronization logic
+
+        import queue
+        q = queue.Queue()
+        queue.empty() returns bool
+        queue.put(value) add item to queue
+        queue.get()      read item from the queue
+
+"""
